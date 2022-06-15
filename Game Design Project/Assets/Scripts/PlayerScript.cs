@@ -4,41 +4,27 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
-    public bool moving = false;
-    [SerializeField]
-    float speed = 5.0f;
-    
-    // Update is called once per frame
-    void Update()
+    public float moveSpeed = 5f;
+
+    public Rigidbody2D rb;
+    public Camera cam;
+
+    Vector2 movement;
+    Vector2 mousePosition;
+    public void Update()
     {
-        movement();
+        movement.x = Input.GetAxisRaw("Horizontal");
+        movement.y = Input.GetAxisRaw("Vertical");
+
+        mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
     }
 
-    void movement()
+    public void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.W))
-        {
-            transform.Translate(Vector3.up * speed * Time.deltaTime, Space.World);
-            moving = true;
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            transform.Translate(Vector3.left * speed * Time.deltaTime, Space.World);
-            moving = true;
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            transform.Translate(Vector3.down * speed * Time.deltaTime, Space.World);
-            moving = true;
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            transform.Translate(Vector3.right * speed * Time.deltaTime, Space.World);
-            moving = true;
-        }
-        if(Input.GetKey(KeyCode.D) !=true && Input.GetKey(KeyCode.A) !=true && Input.GetKey(KeyCode.W) != true && Input.GetKey(KeyCode.S) != true)
-        {
-            moving = false;
-        }
+        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+
+        Vector2 lookDir = mousePosition - rb.position;
+        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
+        rb.rotation = angle;
     }
 }
