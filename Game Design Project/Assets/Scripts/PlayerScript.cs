@@ -13,12 +13,10 @@ public class PlayerScript : MonoBehaviour
     Vector2 mousePosition;
     public void Update()
     {
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.y = Input.GetAxisRaw("Vertical");
+            moving();
 
         mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
     }
-
     public void FixedUpdate()
     {
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
@@ -26,5 +24,11 @@ public class PlayerScript : MonoBehaviour
         Vector2 lookDir = mousePosition - rb.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
         rb.rotation = angle;
+    }
+
+    void moving()
+    {
+        movement.x = Input.GetAxisRaw("Horizontal");
+        movement.y = Input.GetAxisRaw("Vertical");
     }
 }
