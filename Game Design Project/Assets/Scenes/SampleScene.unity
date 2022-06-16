@@ -162,6 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b59a339073bca74c98497e0d76212b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  followPlayer: 1
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -364,9 +365,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3651fc11a07c45a4bacc0eb6a99b950c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  move: 1
   moveSpeed: 5
   rb: {fileID: 1144622377}
   cam: {fileID: 519420031}
+  animator: {fileID: 1144622379}
 --- !u!50 &1144622377
 Rigidbody2D:
   serializedVersion: 4
@@ -424,7 +427,7 @@ Animator:
   m_GameObject: {fileID: 1144622372}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ee47ab14bdca77642983ce7c5e603a79, type: 2}
+  m_Controller: {fileID: 9100000, guid: 3cccbb68265555f43bdc9abd651945cd, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

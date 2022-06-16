@@ -8,14 +8,18 @@ public class PlayerScript : MonoBehaviour
 
     public Rigidbody2D rb;
     public Camera cam;
+    public Animator animator;
 
     Vector2 movement;
     Vector2 mousePosition;
     public void Update()
     {
-            moving();
+        moving();
 
         mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
+
+        animator.SetFloat("Vertical", Input.GetAxisRaw("Vertical"));
+        animator.SetFloat("Horizontal", Input.GetAxisRaw("Horizontal"));
     }
     public void FixedUpdate()
     {
