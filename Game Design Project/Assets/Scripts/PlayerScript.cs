@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class PlayerScript : MonoBehaviour
     public RuntimeAnimatorController pUnarmedController;
     public RuntimeAnimatorController pPumpController;
     public RuntimeAnimatorController pTommyController;
+    public RuntimeAnimatorController Death;
     public Rigidbody2D rb;
     public Camera cam;
     public Animator anim;
@@ -31,11 +33,11 @@ public class PlayerScript : MonoBehaviour
             Shoot();
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.R))
         {
-            //switch when player picks up gun
-            anim.runtimeAnimatorController = pHandgunController as RuntimeAnimatorController;
+            SceneManager.LoadScene("TutorialLevel");
         }
+
     }
     public void FixedUpdate()
     {
@@ -61,19 +63,32 @@ public class PlayerScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.name == "Diana Raptor 4")
+        if(collision.gameObject.layer == 8)
         {
             anim.runtimeAnimatorController = pHandgunController as RuntimeAnimatorController;
         }
 
-        if (collision.gameObject.name == "Shotgun")
+        if (collision.gameObject.layer == 9)
         {
             anim.runtimeAnimatorController = pPumpController as RuntimeAnimatorController;
         }
 
-        if (collision.gameObject.name == "M1A1 Thompson")
+        if (collision.gameObject.layer == 10)
         {
             anim.runtimeAnimatorController = pTommyController as RuntimeAnimatorController;
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.layer == 6)
+        {
+            anim.runtimeAnimatorController = Death as RuntimeAnimatorController;
+        }
+    }
+
+    public void PlayerDeath()
+    {
+        moveSpeed = 0f;
     }
 }
